@@ -16,7 +16,12 @@ public class RepositoryOfProducts {
     }
 
     public Product[] findAll() {
-        return items;
+      //  return items;
+        Product[] tmp = new Product[items.length];
+        for (int i = 0; i < items.length; i++) {
+            System.arraycopy(items,0,tmp,0,items.length);
+        }
+        return tmp;
     }
 
     public Product findById(int id) {
