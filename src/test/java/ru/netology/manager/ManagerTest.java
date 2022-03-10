@@ -1,12 +1,12 @@
-package ru.netology.domain.manager;
+package ru.netology.manager;
 
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Book;
 import ru.netology.domain.Product;
 import ru.netology.domain.Smartphone;
-import ru.netology.domain.repository.RepositoryOfProducts;
+import ru.netology.repository.RepositoryOfProducts;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 class ManagerTest {
 
@@ -16,7 +16,41 @@ class ManagerTest {
     Product phone2 = new Smartphone(42, "p50", 250000, "Huawei");
     Product book1 = new Book(001, "Над пропастью во ржи", 150, "Селинджер");
     Product book2 = new Book(003, "Война миров", 200, "Уэллс");
+    Product book3 = new Book(003, "Война миров", 200, "Уэллс");
 
+
+    @Test
+    void searchByDuplicatedTitle() {
+        manager.addItem(phone1);
+        manager.addItem(book2);
+        manager.addItem(book3);
+
+
+        Product[] expected = {book2, book3};
+        Product[] actual = manager.searchBy("Война миров");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByEmptyTitle() {
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy(null);
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void searchByNonExistingTitle() {
+        manager.addItem(book3);
+        manager.addItem(book1);
+
+        Product[] expected = {};
+        Product[] actual = manager.searchBy("Пушкин");
+
+        assertArrayEquals(expected, actual);
+    }
 
     @Test
     void searchByTitle() {
@@ -32,6 +66,7 @@ class ManagerTest {
 
     @Test
     void searchByEmpty() {
+
         Product[] expected = {};
         Product[] actual = manager.getAll();
 
@@ -124,8 +159,8 @@ class ManagerTest {
         assertArrayEquals(expected, actual);
 
 
-
     }
+
     @Test
     void findByIdNullTest() {
         repository.save(book1);
@@ -139,8 +174,8 @@ class ManagerTest {
         assertArrayEquals(expected, actual);
 
 
-
     }
+
     @Test
     void shouldRemoveByIdManagerTest() {
         manager.addItem(book2);
@@ -150,7 +185,6 @@ class ManagerTest {
         Product[] actual = manager.getAll();
 
         assertArrayEquals(expected, actual);
-
 
 
     }

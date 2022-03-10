@@ -2,27 +2,30 @@ package ru.netology.domain;
 
 import java.util.Objects;
 
-public class Smartphone extends Product{
+public class Smartphone extends Product {
 
-    private String model;
+    private String manufacturer;
 
-    public Smartphone() {};
+    public Smartphone() {
+    }
 
-    public Smartphone(int id, String name, int price, String model) {
-    super(id, name, price);
-    this.model = model;
+    ;
+
+    public Smartphone(int id, String name, int price, String manufacturer) {
+        super(id, name, price);
+        this.manufacturer = manufacturer;
     }
 
     public Smartphone(String model) {
-        this.model = model;
+        this.manufacturer = model;
     }
 
     public String getModel() {
-        return model;
+        return manufacturer;
     }
 
     public void setModel(String model) {
-        this.model = model;
+        this.manufacturer = model;
     }
 
     @Override
@@ -31,18 +34,18 @@ public class Smartphone extends Product{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Smartphone that = (Smartphone) o;
-        return Objects.equals(model, that.model);
+        return Objects.equals(manufacturer, that.manufacturer);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), model);
+        return Objects.hash(super.hashCode(), manufacturer);
     }
 
     @Override
     public String toString() {
         return "Smartphone{" +
-                "model='" + model + '\'' +
+                "model='" + manufacturer + '\'' +
                 '}';
     }
 }
